@@ -59,6 +59,7 @@ def train_model(model, optimizer, train_dataset, config, device):
         epoch_train_losses = []
         for bid, batch in enumerate(train_dataloader):
             batch_img, batch_target = batch[0], batch[3]
+            print(batch_img.shape)
             batch_target = batch_target.to(device)
             batch_img = batch_img.to(device)
             batch_feat = model.encode_image(batch_img)
@@ -233,9 +234,9 @@ if __name__ == "__main__":
 
     if config.save_model:
         torch.save(
-            model.dict(),
+            model.state_dict(),
             os.path.join(
                 config.save_path,
-                'final_model.pt'))
+                'final_model.pth'))
 
     print("done!")

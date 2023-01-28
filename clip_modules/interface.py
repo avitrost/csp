@@ -98,6 +98,8 @@ class CLIPInterface(torch.nn.Module):
             raise NotImplementedError
 
     def forward(self, batch_img, idx):
+        print('index')
+        print(idx)
         batch_img = batch_img.to(self.device)
 
         token_tensors = self.construct_token_tensors(idx)
@@ -115,6 +117,9 @@ class CLIPInterface(torch.nn.Module):
             dim=-1, keepdim=True
         )
         normalized_img = batch_img / batch_img.norm(dim=-1, keepdim=True)
+        print(self.clip_model.logit_scale.exp().shape)
+        print(normalized_img.shape)
+        print(idx_text_features.t().shape)
         logits = (
             self.clip_model.logit_scale.exp()
             * normalized_img

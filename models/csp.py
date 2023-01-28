@@ -75,6 +75,9 @@ def csp_init(
 
     allattrs = train_dataset.attrs
     allobj = train_dataset.objs
+    print('**********')
+    print(allattrs)
+    print(allobj)
 
     # cleaning the classes and the attributes
     classes = [cla.replace(".", " ").lower() for cla in allobj]

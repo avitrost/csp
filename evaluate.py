@@ -386,6 +386,7 @@ def compute_representations(model, test_dataset, config, device):
     pairs = torch.tensor([(attr2idx[attr], obj2idx[obj])
                          for attr, obj in test_dataset.pairs]).to(device)
 
+    print(pairs)
     test_pairs = np.array_split(
         pairs, len(pairs) // config.text_encoder_batch_size
     )
@@ -774,11 +775,11 @@ if __name__ == "__main__":
     else:
         best_th = config.threshold
         evaluator = Evaluator(val_dataset, model=None)
-        feasibility_path = os.path.join(
-            DIR_PATH, f'data/feasibility_{config.dataset}.pt')
-        unseen_scores = torch.load(
-            feasibility_path,
-            map_location='cpu')['feasibility']
+        # feasibility_path = os.path.join(
+        #     DIR_PATH, f'data/feasibility_{config.dataset}.pt')
+        # unseen_scores = torch.load(
+        #     feasibility_path,
+        #     map_location='cpu')['feasibility']
         with torch.no_grad():
             all_logits, all_attr_gt, all_obj_gt, all_pair_gt = predict_logits(
                 model, val_text_rep, val_dataset, device, config)
@@ -843,7 +844,9 @@ if __name__ == "__main__":
         else:
             result_path = config.soft_embeddings[:-2] + "closed.json"
 
+        print(results)
+        print(all_logits)
         with open(result_path, 'w+') as fp:
-            json.dump(results, fp)
+            json.dump(results, fp, default=str)
 
     print("done!")

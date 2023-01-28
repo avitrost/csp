@@ -1,0 +1,14 @@
+python -u train.py \
+  --dataset mowly \
+  --clip_model ViT-L/14 \
+  --experiment_name csp \
+  --seed 0 \
+  --epochs 1 \
+  --lr 5e-05 \
+  --attr_dropout 0.3 \
+  --weight_decay 0.00001 \
+  --train_batch_size 64 \
+  --gradient_accumulation_steps 2 \
+  --context_length 8 \
+  --save_path data/model/mowly/sample_model \
+  --save_every_n 1
