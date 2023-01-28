@@ -117,6 +117,9 @@ class CompositionDataset(Dataset):
         self.obj2idx = {obj: idx for idx, obj in enumerate(self.objs)}
         self.attr2idx = {attr: idx for idx, attr in enumerate(self.attrs)}
         self.pair2idx = {pair: idx for idx, pair in enumerate(self.pairs)}
+        print(self.obj2idx)
+        print(self.attr2idx)
+        print(self.pair2idx)
 
         print('# train pairs: %d | # val pairs: %d | # test pairs: %d' % (len(
             self.train_pairs), len(self.val_pairs), len(self.test_pairs)))
@@ -143,9 +146,12 @@ class CompositionDataset(Dataset):
     def get_split_info(self):
         data = torch.load(self.root + '/metadata_{}.t7'.format(self.split))
         train_data, val_data, test_data = [], [], []
+        print(data)
         for instance in data:
             image, attr, obj, settype = instance['image'], instance[
                 'attr'], instance['obj'], instance['set']
+            print(instance)
+            # input('afdadsfasf')
 
             if attr == 'NA' or (attr,
                                 obj) not in self.pairs or settype == 'NA':
